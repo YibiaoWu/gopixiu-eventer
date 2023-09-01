@@ -1,23 +1,21 @@
 package main
 
 import (
+	"github.com/darianJmy/event-collect/cmd"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog/v2"
-
-	"github.com/darianJmy/event-collect/cmd"
 )
-
-
 
 func main() {
 	client, err := cmd.InitClient()
 	if err != nil {
 		klog.Fatalf("Error building kubernetes clientset: %s", err.Error())
 	}
-	es, err := cmd.InitElasticSearch()
+	// es, err := cmd.InitElasticSearch()
+	kafka := cmd.InitKafka()
 	if err != nil {
 		klog.Fatalf("Error building elasticsearch client: %s", err.Error())
 	}
@@ -38,7 +36,7 @@ func main() {
 	}, cache.Indexers{})
 
 	// 实例化 controller
-	controller := cmd.NewController(indexer, queue, informer, es)
+	controller := cmd.NewController(indexer, queue, informer, kafka)
 
 	// 启动 controller
 	stopCh := make(chan struct{})
@@ -48,3 +46,7 @@ func main() {
 	select {}
 }
 
+// func main() {
+// 	var a interface{}
+// 	println(a.(string))
+// }
