@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	// "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -10,9 +9,6 @@ import (
 	"time"
 
 	kafka "github.com/segmentio/kafka-go"
-
-	// "github.com/elastic/go-elasticsearch/v6"
-	// "github.com/elastic/go-elasticsearch/v6/esapi"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -118,26 +114,6 @@ func (c *Controller) syncToStdout(key string) error {
 		}
 
 		fmt.Printf("插入数据完成  %s\n", obj.(*v1.Event).InvolvedObject.Name)
-		// 关闭Writer
-		// if err := c.kafka.Close(); err != nil {
-		// 	log.Fatal("failed to close writer:", err)
-		// }
-		// 创建 ES 索引请求
-		// req := esapi.IndexRequest{
-		// 	Index:      "event",
-		// 	DocumentID: string(obj.(*v1.Event).UID),
-		// 	Body:       bytes.NewReader(data),
-		// 	Refresh:    "true",
-		// }
-
-		// 执行索引请求
-		// res, err := req.Do(context.Background(), c.es)
-		// if err != nil {
-		// 	log.Fatalf("Error getting response: %s", err)
-		// 	return err
-		// }
-		// defer res.Body.Close()
-		// fmt.Printf("插入数据完成  %s\n", obj.(*v1.Event).InvolvedObject.Name)
 	}
 	return nil
 }

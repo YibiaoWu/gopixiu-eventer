@@ -2,22 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gopixiu-event
+  name: soc-event
   labels:
-    apps: gopixiu-event
+    apps: soc-event
 spec:
   selector:
     matchLabels:
-      apps: gopixiu-event
+      apps: soc-event
   template:
     metadata:
-      name: gopixiu-event
+      name: soc-event
       labels:
-        apps: gopixiu-event
+        apps: soc-event
     spec:
       serviceAccountName: events
       containers:
-        - name: gopixiu-event
-          image: jacky06/gopixiu-event:v0.0.1
+        - name: soc-event
+          image: jacky06/soc-event:v0.0.1
           imagePullPolicy: IfNotPresent
-          command: ["gopixiu-event","--elasticsearch.address=http://10.249.4.147:9200","--elasticsearch.password=elastic","--elasticsearch.username=elasticsearch"]
+          command: ["soc-event","--elasticsearch.address=http://10.249.4.147:9200","--elasticsearch.password=elastic","--elasticsearch.username=elasticsearch"]

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soc-event
+  labels:
+    app: soc-event
+  namespace: global
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: soc-event
+  template:
+    metadata:
+      labels:
+        app: soc-event
+    spec:
+      serviceAccount: test
+      hostNetwork: false
+      containers:
+        - name: soc-event
+          image: core.harbor1.domain/tool/soc-event:v0.0.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - soc-event
+          args:
+            - -kafka_address=kafka.kafka.svc.cluster.local:9092
+            - -kafka_topic=test
+          env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+      terminationGracePeriodSeconds: 5

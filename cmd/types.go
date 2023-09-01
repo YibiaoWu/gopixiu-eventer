@@ -18,11 +18,6 @@ type EventResp struct {
 	Message       string    `json:"message"`
 }
 
-// type EventFlags struct {
-// 	K8S
-// 	ElasticSearch
-// }
-
 type EventFlags struct {
 	K8S
 	Kafka
@@ -31,13 +26,6 @@ type EventFlags struct {
 type K8S struct {
 	KubeConfig string
 }
-
-// type ElasticSearch struct {
-// 	Address  string
-// 	UserName string
-// 	Password string
-// 	CaCert   string
-// }
 
 type Kafka struct {
 	AddrList string

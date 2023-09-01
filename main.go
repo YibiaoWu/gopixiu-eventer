@@ -45,8 +45,3 @@ func main() {
 
 	select {}
 }
-
-// func main() {
-// 	var a interface{}
-// 	println(a.(string))
-// }
