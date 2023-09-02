@@ -23,7 +23,6 @@ type Controller struct {
 	queue    workqueue.RateLimitingInterface
 	informer cache.Controller
 	kafka    *kafka.Writer
-	// es       *elasticsearch.Client
 }
 
 // 代码中定义了一个用于创建 Controller 实例的函数：// 代码中定义了一个用于创建 Controller 实例的函数：代码中定义了一个用于创建 Controller 实例的函数：
@@ -33,7 +32,6 @@ func NewController(indexer cache.Indexer, queue workqueue.RateLimitingInterface,
 		indexer:  indexer,
 		informer: informer,
 		kafka:    kafka,
-		// es:       es,
 	}
 }
 
@@ -113,7 +111,7 @@ func (c *Controller) syncToStdout(key string) error {
 			break
 		}
 
-		fmt.Printf("插入数据完成  %s\n", obj.(*v1.Event).InvolvedObject.Name)
+		log.Printf("%s/%s 插入数据完成. \n", obj.(*v1.Event).InvolvedObject.Kind, obj.(*v1.Event).InvolvedObject.Name)
 	}
 	return nil
 }

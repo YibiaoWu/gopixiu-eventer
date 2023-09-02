@@ -17,8 +17,7 @@ spec:
       labels:
         app: soc-event
     spec:
-      serviceAccount: test
-      hostNetwork: false
+      serviceAccount: event-sa
       containers:
         - name: soc-event
           image: core.harbor1.domain/tool/soc-event:v0.0.1
